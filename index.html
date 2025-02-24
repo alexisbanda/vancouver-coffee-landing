@@ -49,98 +49,105 @@
 
     #exit-popup-content {
       background-color: #fff;
-      padding: 2rem;
+      padding: 1rem; /* Reducido para móvil */
       border-radius: 10px;
       text-align: center;
-      max-width: 400px;
+      max-width: 90%; /* Ajustado para pantallas pequeñas */
+      width: 400px;
     }
   </style>
 </head>
-<body class="font-['Poppins'] bg-gray-100">
+<body class="font-['Poppins'] bg-gray-100 min-h-screen">
 
-<header class="relative text-white py-20 mt-16 text-center">
-  <div class="absolute inset-0 bg-black opacity-50"></div>
-  <div class="relative z-10">
-    <h1 class="text-5xl font-extrabold tracking-tight drop-shadow-md">Vancouver Coffee Co.</h1>
-    <p class="mt-3 text-xl font-light">☕ Tu café favorito en Downtown Vancouver</p>
-    <div class="flex justify-center gap-4 mt-6">
-      <button class="bg-amber-800 text-white px-8 py-3 rounded-full hover:bg-amber-900 transition duration-300 pulse">Ver Menú</button>
-      <button class="bg-white text-amber-800 px-8 py-3 rounded-full hover:bg-amber-200 transition duration-300">Pide Ahora</button>
-    </div>
-  </div>
-</header>
-
+<!-- Navbar -->
 <nav class="fixed top-0 left-0 w-full bg-amber-800 text-white py-4 z-20">
-  <div class="max-w-5xl mx-auto px-6 flex justify-between items-center">
+  <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
     <h1 class="text-xl font-bold">Vancouver Coffee Co.</h1>
-    <div class="space-x-6">
-      <a href="#servicios" class="hover:text-amber-200">Servicios</a>
-      <a href="#testimonios" class="hover:text-amber-200">Testimonios</a>
-      <a href="#mapa" class="hover:text-amber-200">Ubicación</a>
+    <div class="mt-2 sm:mt-0 space-x-0 sm:space-x-6 flex flex-col sm:flex-row items-center">
+      <a href="#servicios" class="hover:text-amber-200 py-1">Servicios</a>
+      <a href="#testimonios" class="hover:text-amber-200 py-1">Testimonios</a>
+      <a href="#mapa" class="hover:text-amber-200 py-1">Ubicación</a>
     </div>
   </div>
 </nav>
 
-<section id="servicios" class="py-16 max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8 px-6 animate-fade-in-up" data-aos="fade-up">
-  <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-    <h3 class="text-2xl font-semibold text-amber-700">☕ Café Artesanal</h3>
+<!-- Header -->
+<header class="relative text-white py-16 sm:py-20 mt-28 sm:mt-16 text-center">
+  <div class="absolute inset-0 bg-black opacity-50"></div>
+  <div class="relative z-10 px-1 sm:px-4">
+    <h1 class="text-2xl sm:text-5xl font-extrabold tracking-normal sm:tracking-tight drop-shadow-md">Vancouver Coffee Co.</h1>
+    <p class="mt-3 text-lg sm:text-xl font-light">☕ Tu café favorito en Downtown Vancouver</p>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
+      <button class="bg-amber-800 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-900 transition duration-300 pulse">Ver Menú</button>
+      <button class="bg-white text-amber-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-200 transition duration-300">Pide Ahora</button>
+    </div>
+  </div>
+</header>
+
+<!-- Servicios -->
+<section id="servicios" class="py-16 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-6" data-aos="fade-up">
+  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+    <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">☕ Café Artesanal</h3>
     <p class="mt-2 text-gray-600">Granos locales, sabor único.</p>
   </div>
-  <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-    <h3 class="text-2xl font-semibold text-amber-700">📶 Wi-Fi Gratis</h3>
+  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+    <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">📶 Wi-Fi Gratis</h3>
     <p class="mt-2 text-gray-600">Perfecto para trabajar.</p>
   </div>
-  <div class="bg-white p-8 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-    <h3 class="text-2xl font-semibold text-amber-700">🛋️ Acogedor</h3>
+  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+    <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">🛋️ Acogedor</h3>
     <p class="mt-2 text-gray-600">Relájate y disfruta.</p>
   </div>
 </section>
 
-<section id="testimonios" class="py-16 bg-gray-50 text-center animate-fade-in-up" data-aos="fade-up">
-  <h2 class="text-3xl font-bold text-amber-800">Nuestros clientes ❤️</h2>
-  <div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6 px-6">
+<!-- Testimonios -->
+<section id="testimonios" class="py-16 bg-gray-50 text-center" data-aos="fade-up">
+  <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">Nuestros clientes ❤️</h2>
+  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6">
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600">"El mejor café en Downtown. ¡Ambiente perfecto para trabajar!"</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"El mejor café en Downtown. ¡Ambiente perfecto para trabajar!"</p>
       <p class="mt-4 font-semibold text-amber-700">— Laura M.</p>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600">"Su café artesanal tiene un sabor único. ¡Altamente recomendado!"</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"Su café artesanal tiene un sabor único. ¡Altamente recomendado!"</p>
       <p class="mt-4 font-semibold text-amber-700">— Daniel R.</p>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600">"Wi-Fi rápido y excelente atención. Mi nuevo lugar favorito."</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"Wi-Fi rápido y excelente atención. Mi nuevo lugar favorito."</p>
       <p class="mt-4 font-semibold text-amber-700">— Sofía P.</p>
     </div>
   </div>
 </section>
 
-<section id="mapa" class="py-12 text-center bg-gray-100 animate-fade-in-up" data-aos="fade-up">
-  <h2 class="text-3xl font-bold text-amber-800">¿Dónde encontrarnos?</h2>
-  <iframe class="mt-6 w-full max-w-3xl mx-auto rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+<!-- Mapa -->
+<section id="mapa" class="py-12 text-center bg-gray-100" data-aos="fade-up">
+  <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">¿Dónde encontrarnos?</h2>
+  <iframe class="mt-6 w-full h-64 sm:h-96 max-w-3xl mx-auto rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
 </section>
 
+<!-- Footer -->
 <footer class="bg-gray-900 text-white py-12 text-center">
-  <h2 class="text-3xl font-bold">Contáctanos</h2>
-  <p class="mt-2 text-gray-300">Únete a nuestra comunidad cafetera</p>
-  <form name="contact" method="POST" data-netlify="true" class="mt-6 flex justify-center gap-4">
-    <input type="email" name="email" placeholder="Tu email" required class="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-amber-500">
+  <h2 class="text-2xl sm:text-3xl font-bold">Contáctanos</h2>
+  <p class="mt-2 text-gray-300 text-sm sm:text-base">Únete a nuestra comunidad cafetera</p>
+  <form name="contact" method="POST" data-netlify="true" class="mt-6 flex flex-col sm:flex-row justify-center gap-4 px-4">
+    <input type="email" name="email" placeholder="Tu email" required class="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-amber-500 w-full sm:w-auto">
     <button type="submit" class="bg-amber-700 px-6 py-3 rounded-lg hover:bg-amber-800 transition duration-300">Suscribirme</button>
   </form>
   <p class="text-sm text-gray-400 mt-2">🎁 ¡Suscríbete y obtén un café gratis en tu próxima visita!</p>
   <p class="mt-4 text-sm text-gray-400">hola@vancouvercoffee.co</p>
 </footer>
 
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/1234567890" class="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600" target="_blank">
+<!-- Botón WhatsApp -->
+<a href="https://wa.me/16041234567" class="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600" target="_blank">
   💬
 </a>
 
 <!-- Exit Intent Popup -->
 <div id="exit-popup" class="flex">
   <div id="exit-popup-content">
-    <h2 class="text-2xl font-bold text-amber-800">¡No te vayas sin tu descuento!</h2>
-    <p class="mt-4">Suscríbete ahora y obtén un 15% en tu próxima visita.</p>
-    <button onclick="closePopup()" class="mt-6 bg-amber-700 text-white px-6 py-3 rounded-lg hover:bg-amber-800">Cerrar</button>
+    <h2 class="text-xl sm:text-2xl font-bold text-amber-800">¡No te vayas sin tu descuento!</h2>
+    <p class="mt-4 text-sm sm:text-base">Suscríbete ahora y obtén un 15% en tu próxima visita.</p>
+    <button onclick="closePopup()" class="mt-6 bg-amber-700 text-white px-6 py-2 sm:py-3 rounded-lg hover:bg-amber-800">Cerrar</button>
   </div>
 </div>
 
@@ -149,7 +156,6 @@
 <script>
   AOS.init();
 
-  // Exit Intent Popup
   let exitPopupShown = false;
   document.addEventListener('mouseout', (e) => {
     if (!exitPopupShown && e.clientY < 50) {
