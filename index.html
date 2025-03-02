@@ -3,6 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Vancouver Coffee Co. ofrece café artesanal, Wi-Fi gratis y un ambiente acogedor en el corazón de Downtown Vancouver.">
+  <meta name="keywords" content="café artesanal, Vancouver, cafetería downtown, Wi-Fi gratis">
   <title>Vancouver Coffee Co.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
@@ -10,93 +12,145 @@
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
   <style>
     header {
-      background-image: url('https://images.pexels.com/photos/1627933/pexels-photo-1627933.jpeg');
+      background-image: url('https://res.cloudinary.com/dvm4ql8eo/image/upload/c_crop,w_1000,h_300/v1740891200/image_13_hsrf3f.jpg');
       background-size: cover;
       background-position: center;
     }
 
-    @keyframes pulse {
-      0% { transform: scale(1); }
-      50% { transform: scale(1.05); }
-      100% { transform: scale(1); }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
     }
 
-    .pulse:hover {
-      animation: pulse 0.8s infinite;
+    .animate-bounce-slow {
+      animation: bounce 2s infinite;
     }
 
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .animate-fade-in-up {
-      animation: fadeInUp 0.6s ease-out forwards;
-    }
-
-    /* Exit intent popup */
-    #exit-popup {
-      display: none;
+    /* Estilo para el menú hamburguesa abierto en móvil */
+    #nav-menu.mobile-open {
+      display: flex;
+      flex-direction: column;
       position: fixed;
-      top: 0;
+      top: 4rem; /* Altura de la navbar */
       left: 0;
       width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.7);
-      justify-content: center;
-      align-items: center;
-      z-index: 50;
+      height: calc(100vh - 4rem); /* Altura restante de la pantalla */
+      background-color: #f59e0b; /* bg-amber-500 para consistencia */
+      padding: 1rem;
+      z-index: 10;
+      animation: slideIn 0.3s ease-out;
     }
 
-    #exit-popup-content {
-      background-color: #fff;
-      padding: 1rem; /* Reducido para móvil */
-      border-radius: 10px;
-      text-align: center;
-      max-width: 90%; /* Ajustado para pantallas pequeñas */
-      width: 400px;
+    @keyframes slideIn {
+      from {
+        transform: translateX(-100%);
+      }
+      to {
+        transform: translateX(0);
+      }
     }
   </style>
 </head>
 <body class="font-['Poppins'] bg-gray-100 min-h-screen">
 
 <!-- Navbar -->
-<nav class="fixed top-0 left-0 w-full bg-amber-800 text-white py-4 z-20">
-  <div class="max-w-5xl mx-auto px-6 flex flex-col sm:flex-row justify-between items-center">
-    <h1 class="text-xl font-bold">Vancouver Coffee Co.</h1>
-    <div class="mt-2 sm:mt-0 space-x-0 sm:space-x-6 flex flex-col sm:flex-row items-center">
-      <a href="#servicios" class="hover:text-amber-200 py-1">Servicios</a>
-      <a href="#testimonios" class="hover:text-amber-200 py-1">Testimonios</a>
-      <a href="#mapa" class="hover:text-amber-200 py-1">Ubicación</a>
+<nav id="navbar" class="fixed top-0 left-0 w-full bg-amber-800 bg-opacity-80 text-white py-4 z-20 transition-all duration-300">
+  <div class="max-w-5xl mx-auto px-4 flex justify-between items-center">
+    <h1 class="text-xl font-bold">☕ Vancouver Coffee Co.</h1>
+    <div class="sm:hidden">
+      <button id="menu-toggle" class="text-2xl focus:outline-none">≡</button>
+    </div>
+    <div id="nav-menu" class="hidden sm:flex sm:flex-row mt-0 space-x-0 sm:space-x-6 flex-col sm:flex-row items-center">
+      <a href="#nosotros" class="hover:text-amber-200 py-1 nav-link">Nosotros</a>
+      <a href="#servicios" class="hover:text-amber-200 py-1 nav-link">Servicios</a>
+      <a href="#menu" class="hover:text-amber-200 py-1 nav-link">Menú</a>
+      <a href="#testimonios" class="hover:text-amber-200 py-1 nav-link">Testimonios</a>
+      <a href="#mapa" class="hover:text-amber-200 py-1 nav-link">Ubicación</a>
     </div>
   </div>
 </nav>
 
 <!-- Header -->
-<header class="relative text-white py-16 sm:py-20 mt-28 sm:mt-16 text-center">
-  <div class="absolute inset-0 bg-black opacity-50"></div>
+<header class="relative text-white py-16 sm:py-20 mt-16 sm:mt-0 text-center" aria-label="Cafetería Vancouver Coffee Co. en Downtown">
+  <div class="absolute inset-0 bg-black opacity-65"></div>
   <div class="relative z-10 px-1 sm:px-4">
     <h1 class="text-2xl sm:text-5xl font-extrabold tracking-normal sm:tracking-tight drop-shadow-md">Vancouver Coffee Co.</h1>
-    <p class="mt-3 text-lg sm:text-xl font-light">☕ Tu café favorito en Downtown Vancouver</p>
+    <p class="mt-3 text-lg sm:text-xl font-light">Tu café favorito en Downtown Vancouver</p>
     <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-      <button class="bg-amber-800 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-900 transition duration-300 pulse">Ver Menú</button>
-      <button class="bg-white text-amber-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-200 transition duration-300">Pide Ahora</button>
+      <a href="#menu" class="bg-amber-800 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-900 transition duration-300 animate-bounce-slow">Explora Nuestro Menú</a>
+      <button onclick="openOrderModal()" class="bg-white text-amber-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-200 transition duration-300 animate-bounce-slow">Ordena Tu Café Ya</button>
     </div>
   </div>
 </header>
+
+<!-- Nosotros -->
+<section id="nosotros" class="py-16 max-w-5xl mx-auto px-6 bg-gray-50" data-aos="fade-up">
+  <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 text-center">¿Quiénes Somos?</h2>
+  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+    <div class="bg-white p-6 rounded-lg shadow-md">
+      <p class="text-gray-600 text-sm sm:text-base">
+        Vancouver Coffee Co. nació en 2020 de la pasión de dos amigos por el café artesanal. Inspirados por los paisajes de British Columbia, seleccionamos los mejores granos locales para crear experiencias únicas. Nos dedicamos a la sostenibilidad, apoyando a granjeros locales y ofreciendo un espacio acogedor para la comunidad de Vancouver.
+      </p>
+    </div>
+    <div class="hidden md:block">
+      <img src="https://res.cloudinary.com/dvm4ql8eo/image/upload/c_fill,w_400/v1740891384/image_14_acqtkf.jpg" alt="Equipo de Vancouver Coffee Co." class="rounded-lg shadow-md" loading="lazy">
+    </div>
+  </div>
+</section>
 
 <!-- Servicios -->
 <section id="servicios" class="py-16 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-6" data-aos="fade-up">
   <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
     <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">☕ Café Artesanal</h3>
-    <p class="mt-2 text-gray-600">Granos locales, sabor único.</p>
+    <p class="mt-2 text-gray-600">Granos 100% orgánicos de granjas locales en BC, tostados a mano.</p>
   </div>
   <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
     <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">📶 Wi-Fi Gratis</h3>
-    <p class="mt-2 text-gray-600">Perfecto para trabajar.</p>
+    <p class="mt-2 text-gray-600">Internet ultrarrápido para freelancers y nómadas digitales.</p>
   </div>
   <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
     <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">🛋️ Acogedor</h3>
-    <p class="mt-2 text-gray-600">Relájate y disfruta.</p>
+    <p class="mt-2 text-gray-600">Espacios diseñados para inspirar, con vistas al corazón de Vancouver.</p>
+  </div>
+</section>
+
+<!-- Menú -->
+<section id="menu" class="py-16 max-w-5xl mx-auto px-6" data-aos="fade-up">
+  <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 text-center">Nuestro Menú</h2>
+  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+    <!-- Cafés Calientes -->
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Latte de Avellana</h3>
+      <p class="mt-1 text-gray-600 text-sm">Leche cremosa con un toque dulce de avellana. <span class="font-bold">$5.50</span></p>
+      <button onclick="openOrderModal('Latte de Avellana')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Flat White</h3>
+      <p class="mt-1 text-gray-600 text-sm">Espresso intenso con microespuma suave. <span class="font-bold">$4.75</span></p>
+      <button onclick="openOrderModal('Flat White')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Americano</h3>
+      <p class="mt-1 text-gray-600 text-sm">Simple, fuerte y directo al grano. <span class="font-bold">$3.50</span></p>
+      <button onclick="openOrderModal('Americano')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
+    <!-- Cafés Fríos -->
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Cold Brew</h3>
+      <p class="mt-1 text-gray-600 text-sm">Infusión fría de 12 horas, refrescante y suave. <span class="font-bold">$5.00</span></p>
+      <button onclick="openOrderModal('Cold Brew')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Iced Vanilla Latte</h3>
+      <p class="mt-1 text-gray-600 text-sm">Frescura dulce con un giro artesanal. <span class="font-bold">$6.00</span></p>
+      <button onclick="openOrderModal('Iced Vanilla Latte')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
+    <!-- Extras -->
+    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <h3 class="text-xl font-semibold text-amber-700">Croissant de Almendra</h3>
+      <p class="mt-1 text-gray-600 text-sm">Hojaldrado y crujiente, perfecto con tu café. <span class="font-bold">$4.00</span></p>
+      <button onclick="openOrderModal('Croissant de Almendra')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+    </div>
   </div>
 </section>
 
@@ -105,15 +159,15 @@
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">Nuestros clientes ❤️</h2>
   <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6">
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"El mejor café en Downtown. ¡Ambiente perfecto para trabajar!"</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"El latte de avellana es increíble, y el Wi-Fi me salvó para una reunión de Zoom."</p>
       <p class="mt-4 font-semibold text-amber-700">— Laura M.</p>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"Su café artesanal tiene un sabor único. ¡Altamente recomendado!"</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"Pedí un flat white y terminé quedándome 3 horas por lo cómodo del lugar."</p>
       <p class="mt-4 font-semibold text-amber-700">— Daniel R.</p>
     </div>
     <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"Wi-Fi rápido y excelente atención. Mi nuevo lugar favorito."</p>
+      <p class="italic text-gray-600 text-sm sm:text-base">"El café artesanal y la atención son de otro nivel. Mi nuevo spot favorito."</p>
       <p class="mt-4 font-semibold text-amber-700">— Sofía P.</p>
     </div>
   </div>
@@ -122,32 +176,72 @@
 <!-- Mapa -->
 <section id="mapa" class="py-12 text-center bg-gray-100" data-aos="fade-up">
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">¿Dónde encontrarnos?</h2>
-  <iframe class="mt-6 w-full h-64 sm:h-96 max-w-3xl mx-auto rounded-lg" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <iframe class="mt-6 w-full h-64 sm:h-96 max-w-3xl mx-auto rounded-lg" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <a href="https://goo.gl/maps/xyz" target="_blank" class="text-amber-700 underline mt-2 inline-block">Abrir en Google Maps</a>
 </section>
 
 <!-- Footer -->
 <footer class="bg-gray-900 text-white py-12 text-center">
   <h2 class="text-2xl sm:text-3xl font-bold">Contáctanos</h2>
   <p class="mt-2 text-gray-300 text-sm sm:text-base">Únete a nuestra comunidad cafetera</p>
-  <form name="contact" method="POST" data-netlify="true" class="mt-6 flex flex-col sm:flex-row justify-center gap-4 px-4">
+  <form name="contact" method="POST" data-netlify="true" class="mt-6 flex flex-col sm:flex-row justify-center gap-4 px-4" onsubmit="return handleSubmit(event)">
+    <input type="hidden" name="form-name" value="contact">
     <input type="email" name="email" placeholder="Tu email" required class="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-amber-500 w-full sm:w-auto">
     <button type="submit" class="bg-amber-700 px-6 py-3 rounded-lg hover:bg-amber-800 transition duration-300">Suscribirme</button>
   </form>
+  <p id="form-message" class="text-sm text-gray-400 mt-2 hidden">¡Gracias! Revisa tu correo.</p>
   <p class="text-sm text-gray-400 mt-2">🎁 ¡Suscríbete y obtén un café gratis en tu próxima visita!</p>
   <p class="mt-4 text-sm text-gray-400">hola@vancouvercoffee.co</p>
 </footer>
 
 <!-- Botón WhatsApp -->
-<a href="https://wa.me/16041234567" class="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600" target="_blank">
+<a href="https://wa.me/16041234567?text=¡Hola!%20Quiero%20hacer%20un%20pedido%20en%20Vancouver%20Coffee%20Co." class="fixed bottom-5 right-5 bg-green-500 text-white p-3 rounded-full shadow-lg hover:bg-green-600 group" target="_blank">
+  <span class="hidden group-hover:block absolute right-14 bottom-2 bg-gray-800 text-white text-xs rounded py-1 px-2">Chatea con nosotros</span>
   💬
 </a>
 
 <!-- Exit Intent Popup -->
-<div id="exit-popup" class="flex">
-  <div id="exit-popup-content">
+<div id="exit-popup" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 justify-center items-center z-50">
+  <div id="exit-popup-content" class="bg-white p-4 sm:p-6 rounded-lg text-center max-w-[90%] w-[400px]">
     <h2 class="text-xl sm:text-2xl font-bold text-amber-800">¡No te vayas sin tu descuento!</h2>
     <p class="mt-4 text-sm sm:text-base">Suscríbete ahora y obtén un 15% en tu próxima visita.</p>
-    <button onclick="closePopup()" class="mt-6 bg-amber-700 text-white px-6 py-2 sm:py-3 rounded-lg hover:bg-amber-800">Cerrar</button>
+    <form name="exit-contact" method="POST" data-netlify="true" class="mt-4 flex flex-col gap-2" onsubmit="return handlePopupSubmit(event)">
+      <input type="hidden" name="form-name" value="exit-contact">
+      <input type="email" name="email" placeholder="Tu email" required class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
+      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition duration-300">Suscribirme</button>
+    </form>
+    <button onclick="closePopup()" class="mt-2 text-amber-700 underline">No, gracias</button>
+  </div>
+</div>
+
+<!-- Modal de Pedido -->
+<div id="order-modal" class="hidden fixed top-0 left-0 w-full h-full bg-black bg-opacity-70 flex justify-center items-center z-50">
+  <div class="bg-white p-4 sm:p-6 rounded-lg text-center max-w-[90%] w-[400px] transform translate-y-[-50%] translate-x-[-50%] absolute top-1/2 left-1/2">
+    <h2 class="text-xl sm:text-2xl font-bold text-amber-800">Tu Pedido</h2>
+    <form id="order-form" class="mt-4 flex flex-col gap-4" onsubmit="return handleOrderSubmit(event)">
+      <div>
+        <label for="item" class="block text-sm font-medium text-gray-700">Producto</label>
+        <select id="item" name="item" class="mt-1 p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
+          <option value="Latte de Avellana">Latte de Avellana - $5.50</option>
+          <option value="Flat White">Flat White - $4.75</option>
+          <option value="Americano">Americano - $3.50</option>
+          <option value="Cold Brew">Cold Brew - $5.00</option>
+          <option value="Iced Vanilla Latte">Iced Vanilla Latte - $6.00</option>
+          <option value="Croissant de Almendra">Croissant de Almendra - $4.00</option>
+        </select>
+      </div>
+      <div>
+        <label for="quantity" class="block text-sm font-medium text-gray-700">Cantidad</label>
+        <input type="number" id="quantity" name="quantity" min="1" value="1" class="mt-1 p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
+      </div>
+      <div>
+        <label for="name" class="block text-sm font-medium text-gray-700">Tu Nombre</label>
+        <input type="text" id="name" name="name" required class="mt-1 p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
+      </div>
+      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition duration-300">Confirmar Pedido</button>
+    </form>
+    <button onclick="closeOrderModal()" class="mt-2 text-amber-700 underline">Cancelar</button>
+    <p id="order-message" class="text-sm text-gray-600 mt-2 hidden">¡Pedido confirmado! Te esperamos pronto.</p>
   </div>
 </div>
 
@@ -156,16 +250,99 @@
 <script>
   AOS.init();
 
-  let exitPopupShown = false;
-  document.addEventListener('mouseout', (e) => {
-    if (!exitPopupShown && e.clientY < 50) {
-      document.getElementById('exit-popup').style.display = 'flex';
-      exitPopupShown = true;
+  // Menú hamburguesa (solo en móvil)
+  document.getElementById('menu-toggle').addEventListener('click', () => {
+    document.getElementById('nav-menu').classList.toggle('mobile-open');
+  });
+
+  // Cerrar menú al hacer clic fuera de él
+  document.addEventListener('click', (e) => {
+    const menu = document.getElementById('nav-menu');
+    const toggle = document.getElementById('menu-toggle');
+    if (!menu.contains(e.target) && !toggle.contains(e.target) && menu.classList.contains('mobile-open')) {
+      menu.classList.remove('mobile-open');
     }
   });
 
+  // Cerrar menú al seleccionar una opción en móvil
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', (e) => {
+      if (window.innerWidth < 640) { // Breakpoint 'sm' en Tailwind es 640px
+        document.getElementById('nav-menu').classList.remove('mobile-open');
+      }
+    });
+  });
+
+  // Navbar semi-transparente que cambia al scroll
+  window.addEventListener('scroll', () => {
+    const navbar = document.getElementById('navbar');
+    if (window.scrollY > 50) {
+      navbar.classList.remove('bg-opacity-80');
+      navbar.classList.add('bg-opacity-100', 'shadow-lg');
+    } else {
+      navbar.classList.remove('bg-opacity-100', 'shadow-lg');
+      navbar.classList.add('bg-opacity-80');
+    }
+  });
+
+  // Formulario del footer
+  function handleSubmit(event) {
+    event.preventDefault();
+    fetch('/', {
+      method: 'POST',
+      body: new FormData(event.target)
+    }).then(() => {
+      document.getElementById('form-message').classList.remove('hidden');
+      event.target.reset();
+    });
+    return false;
+  }
+
+  // Popup de salida
+  let exitPopupShown = localStorage.getItem('popupShown') === 'true';
+  document.addEventListener('mouseout', (e) => {
+    if (!exitPopupShown && e.clientY < 50) {
+      document.getElementById('exit-popup').classList.remove('hidden');
+      exitPopupShown = true;
+      localStorage.setItem('popupShown', 'true');
+    }
+  });
+
+  function handlePopupSubmit(event) {
+    event.preventDefault();
+    fetch('/', {
+      method: 'POST',
+      body: new FormData(event.target)
+    }).then(() => {
+      closePopup();
+    });
+    return false;
+  }
+
   function closePopup() {
-    document.getElementById('exit-popup').style.display = 'none';
+    document.getElementById('exit-popup').classList.add('hidden');
+  }
+
+  // Modal de pedido
+  function openOrderModal(item = null) {
+    const modal = document.getElementById('order-modal');
+    const select = document.getElementById('item');
+    if (item) select.value = item;
+    modal.classList.remove('hidden');
+  }
+
+  function closeOrderModal() {
+    document.getElementById('order-modal').classList.add('hidden');
+    document.getElementById('order-message').classList.add('hidden');
+    document.getElementById('order-form').reset();
+  }
+
+  function handleOrderSubmit(event) {
+    event.preventDefault();
+    // Aquí podrías enviar el pedido a un backend real
+    document.getElementById('order-message').classList.remove('hidden');
+    setTimeout(closeOrderModal, 2000); // Cierra después de 2 segundos
+    return false;
   }
 </script>
 
