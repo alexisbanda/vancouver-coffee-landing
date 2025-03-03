@@ -4,17 +4,19 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Vancouver Coffee Co. ofrece café artesanal, Wi-Fi gratis y un ambiente acogedor en el corazón de Downtown Vancouver.">
-  <meta name="keywords" content="café artesanal, Vancouver, cafetería downtown, Wi-Fi gratis">
+  <meta name="keywords" content="café artesanal, Vancouver, cafetería downtown, Wi-Fi gratis, mejor café BC">
   <title>Vancouver Coffee Co.</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
   <link rel="icon" href="https://img.icons8.com/color/48/000000/coffee.png" type="image/png">
   <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css"> <!-- Swiper CSS para testimonios -->
   <style>
     header {
-      background-image: url('https://res.cloudinary.com/dvm4ql8eo/image/upload/c_crop,w_1000,h_300/v1740891200/image_13_hsrf3f.jpg');
+      background-image: url('https://res.cloudinary.com/dvm4ql8eo/image/upload/c_crop,w_1000,h_300,q_auto,f_webp/v1740891200/image_13_hsrf3f.jpg');
       background-size: cover;
       background-position: center;
+      background-blend-mode: overlay; /* Añade un toque sutil de mezcla con el overlay negro */
     }
 
     @keyframes bounce {
@@ -22,8 +24,28 @@
       50% { transform: translateY(-10px); }
     }
 
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.3), 0 0 10px rgba(255, 193, 7, 0.3); }
+      50% { box-shadow: 0 0 10px rgba(255, 193, 7, 0.7), 0 0 20px rgba(255, 193, 7, 0.7); }
+      100% { box-shadow: 0 0 5px rgba(255, 193, 7, 0.3), 0 0 10px rgba(255, 193, 7, 0.3); }
+    }
+
     .animate-bounce-slow {
       animation: bounce 2s infinite;
+    }
+
+    .animate-pulse-slow {
+      animation: pulse 1.5s infinite;
+    }
+
+    .animate-glow {
+      animation: glow 2s infinite;
     }
 
     /* Estilo para el menú hamburguesa abierto en móvil */
@@ -49,6 +71,92 @@
         transform: translateX(0);
       }
     }
+
+    /* Estilo para las promociones con gradiente y sombra */
+    .promo-card {
+      background: linear-gradient(135deg, #fef3c7 0%, rgba(253, 202, 0, 0.63) 100%);
+      box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      transition: transform 0.3s, box-shadow 0.3s;
+      overflow: hidden;
+    }
+
+    .promo-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Estilo para el contador */
+    .countdown {
+      font-family: 'Poppins', sans-serif;
+      font-weight: bold;
+      color: #d97706; /* amber-600 */
+      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .countdown-icon {
+      font-size: 1.5rem;
+      animation: animate-glow 2s infinite;
+    }
+
+    /* Tooltip para botones */
+    .tooltip {
+      position: relative;
+      display: inline-block;
+    }
+
+    .tooltip .tooltiptext {
+      visibility: hidden;
+      width: 120px;
+      background-color: #333;
+      color: #fff;
+      text-align: center;
+      padding: 5px 0;
+      border-radius: 6px;
+      position: absolute;
+      z-index: 1;
+      bottom: 125%;
+      left: 50%;
+      margin-left: -60px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .tooltip:hover .tooltiptext {
+      visibility: visible;
+      opacity: 1;
+    }
+
+    /* Estilo para el carousel de testimonios */
+    .swiper {
+      width: 100%;
+      padding: 20px;
+    }
+
+    .swiper-slide {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    /* Padding personalizado para .py-16 */
+    .py-16 {
+      padding-top: 4rem;
+      padding-bottom: 2rem;
+    }
+    @media (max-width: 640px) {
+      .animate-pulse-slow {
+        animation: pulse 2s infinite; /* Más lenta en móviles */
+      }
+      .animate-bounce-slow {
+        animation: bounce 3s infinite; /* Más lenta en móviles */
+      }
+    }
   </style>
 </head>
 <body class="font-['Poppins'] bg-gray-100 min-h-screen">
@@ -64,6 +172,7 @@
       <a href="#nosotros" class="hover:text-amber-200 py-1 nav-link">Nosotros</a>
       <a href="#servicios" class="hover:text-amber-200 py-1 nav-link">Servicios</a>
       <a href="#menu" class="hover:text-amber-200 py-1 nav-link">Menú</a>
+      <a href="#promociones" class="hover:text-amber-200 py-1 nav-link">Promociones</a>
       <a href="#testimonios" class="hover:text-amber-200 py-1 nav-link">Testimonios</a>
       <a href="#mapa" class="hover:text-amber-200 py-1 nav-link">Ubicación</a>
     </div>
@@ -72,126 +181,187 @@
 
 <!-- Header -->
 <header class="relative text-white py-16 sm:py-20 mt-16 sm:mt-0 text-center" aria-label="Cafetería Vancouver Coffee Co. en Downtown">
-  <div class="absolute inset-0 bg-black opacity-65"></div>
+  <div class="absolute inset-0 bg-gradient-to-b from-black/60 to-transparent"></div>
   <div class="relative z-10 px-1 sm:px-4">
     <h1 class="text-2xl sm:text-5xl font-extrabold tracking-normal sm:tracking-tight drop-shadow-md">Vancouver Coffee Co.</h1>
     <p class="mt-3 text-lg sm:text-xl font-light">Tu café favorito en Downtown Vancouver</p>
-    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6">
-      <a href="#menu" class="bg-amber-800 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-900 transition duration-300 animate-bounce-slow">Explora Nuestro Menú</a>
-      <button onclick="openOrderModal()" class="bg-white text-amber-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-200 transition duration-300 animate-bounce-slow">Ordena Tu Café Ya</button>
+    <div class="flex flex-col sm:flex-row justify-center gap-4 mt-6" style="padding-right: 1rem; padding-left: 1rem;">
+      <a href="#menu" class="bg-amber-800 text-white px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-900 transition duration-300">Explora Nuestro Menú</a>
+      <button onclick="openOrderModal()" class="bg-white text-amber-800 px-6 py-2 sm:px-8 sm:py-3 rounded-full hover:bg-amber-200 transition duration-300 animate-bounce-slow animate-pulse-slow">Ordena Tu Café Ya</button>
     </div>
   </div>
 </header>
 
 <!-- Nosotros -->
-<section id="nosotros" class="py-16 max-w-5xl mx-auto px-6 bg-gray-50" data-aos="fade-up">
+<section id="nosotros" class="py-10 max-w-5xl mx-auto px-6 bg-gray-50" data-aos="fade-up">
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 text-center">¿Quiénes Somos?</h2>
-  <div class="mt-8 grid grid-cols-1 md:grid-cols-2 gap-8">
-    <div class="bg-white p-6 rounded-lg shadow-md">
+  <div class="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
+    <div class="bg-white p-4 rounded-lg shadow-md">
       <p class="text-gray-600 text-sm sm:text-base">
         Vancouver Coffee Co. nació en 2020 de la pasión de dos amigos por el café artesanal. Inspirados por los paisajes de British Columbia, seleccionamos los mejores granos locales para crear experiencias únicas. Nos dedicamos a la sostenibilidad, apoyando a granjeros locales y ofreciendo un espacio acogedor para la comunidad de Vancouver.
       </p>
     </div>
     <div class="hidden md:block">
-      <img src="https://res.cloudinary.com/dvm4ql8eo/image/upload/c_fill,w_400/v1740891384/image_14_acqtkf.jpg" alt="Equipo de Vancouver Coffee Co." class="rounded-lg shadow-md" loading="lazy">
+      <img src="https://res.cloudinary.com/dvm4ql8eo/image/upload/c_fill,w_400,q_auto,f_webp/v1740891384/image_14_acqtkf.jpg" alt="Equipo de Vancouver Coffee Co." class="rounded-lg shadow-md" loading="lazy" sizes="(max-width: 768px) 100vw, 400px" srcset="https://res.cloudinary.com/dvm4ql8eo/image/upload/c_fill,w_200,q_auto,f_webp/v1740891384/image_14_acqtkf.jpg 200w, https://res.cloudinary.com/dvm4ql8eo/image/upload/c_fill,w_400,q_auto,f_webp/v1740891384/image_14_acqtkf.jpg 400w">
     </div>
   </div>
 </section>
 
 <!-- Servicios -->
-<section id="servicios" class="py-16 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 px-6" data-aos="fade-up">
-  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
-    <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">☕ Café Artesanal</h3>
+<section id="servicios" class="py-10 max-w-5xl mx-auto grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 px-6" data-aos="fade-up">
+  <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+    <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">☕ Café Artesanal <span class="text-xs text-green-500">🌱 100% Orgánico</span></h3>
     <p class="mt-2 text-gray-600">Granos 100% orgánicos de granjas locales en BC, tostados a mano.</p>
   </div>
-  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+  <div class="bg-white p-4 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
     <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">📶 Wi-Fi Gratis</h3>
     <p class="mt-2 text-gray-600">Internet ultrarrápido para freelancers y nómadas digitales.</p>
   </div>
-  <div class="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl hover:-translate-y-2 transition-all duration-300">
+  <div class="bg-white p-4 rounded-lg shadow-lg hover:-translate-y-2 transition-all duration-300">
     <h3 class="text-xl sm:text-2xl font-semibold text-amber-700">🛋️ Acogedor</h3>
     <p class="mt-2 text-gray-600">Espacios diseñados para inspirar, con vistas al corazón de Vancouver.</p>
   </div>
 </section>
 
 <!-- Menú -->
-<section id="menu" class="py-16 max-w-5xl mx-auto px-6" data-aos="fade-up">
+<section id="menu" class="py-10 max-w-5xl mx-auto px-6" data-aos="fade-up">
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 text-center">Nuestro Menú</h2>
-  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+  <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
     <!-- Cafés Calientes -->
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/?size=48&id=Ssu2jHhVZPnO&format=png&color=000000" alt="Latte de Avellana" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Latte de Avellana</h3>
       <p class="mt-1 text-gray-600 text-sm">Leche cremosa con un toque dulce de avellana. <span class="font-bold">$5.50</span></p>
-      <button onclick="openOrderModal('Latte de Avellana')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Latte de Avellana')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/color/48/000000/coffee.png" alt="Flat White" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Flat White</h3>
       <p class="mt-1 text-gray-600 text-sm">Espresso intenso con microespuma suave. <span class="font-bold">$4.75</span></p>
-      <button onclick="openOrderModal('Flat White')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Flat White')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/?size=48&id=Ssu2jHhVZPnO&format=png&color=000000" alt="Americano" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Americano</h3>
       <p class="mt-1 text-gray-600 text-sm">Simple, fuerte y directo al grano. <span class="font-bold">$3.50</span></p>
-      <button onclick="openOrderModal('Americano')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Americano')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
     </div>
     <!-- Cafés Fríos -->
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/color/48/000000/iced-coffee.png" alt="Cold Brew" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Cold Brew</h3>
       <p class="mt-1 text-gray-600 text-sm">Infusión fría de 12 horas, refrescante y suave. <span class="font-bold">$5.00</span></p>
-      <button onclick="openOrderModal('Cold Brew')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Cold Brew')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/?size=48&id=Ssu2jHhVZPnO&format=png&color=000000" alt="Iced Vanilla Latte" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Iced Vanilla Latte</h3>
       <p class="mt-1 text-gray-600 text-sm">Frescura dulce con un giro artesanal. <span class="font-bold">$6.00</span></p>
-      <button onclick="openOrderModal('Iced Vanilla Latte')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Iced Vanilla Latte')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
     </div>
     <!-- Extras -->
-    <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+    <div class="bg-white p-4 rounded-lg shadow-md hover:shadow-xl transition-all duration-300">
+      <img src="https://img.icons8.com/color/48/000000/croissant.png" alt="Croissant de Almendra" class="mb-2" loading="lazy">
       <h3 class="text-xl font-semibold text-amber-700">Croissant de Almendra</h3>
       <p class="mt-1 text-gray-600 text-sm">Hojaldrado y crujiente, perfecto con tu café. <span class="font-bold">$4.00</span></p>
-      <button onclick="openOrderModal('Croissant de Almendra')" class="mt-4 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 flex justify-center w-full">Ordenar</button>
+      <button onclick="openOrderModal('Croissant de Almendra')" class="mt-2 bg-amber-700 text-white px-4 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow flex justify-center w-full">Ordenar</button>
+    </div>
+  </div>
+</section>
+
+<!-- Promociones -->
+<section id="promociones" class="py-10 max-w-5xl mx-auto px-6 bg-gradient-to-b from-gray-100 to-gray-200" data-aos="fade-up" data-aos-delay="200">
+  <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 text-center">Promociones Actuales</h2>
+  <p class="text-center text-gray-600 mt-2 text-sm animate-pulse-slow">¡Actúa rápido, estas ofertas no durarán mucho!</p>
+  <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 gap-4 w-full">
+    <div class="bg-white p-4 rounded-lg shadow-md promo-card w-full" data-aos="zoom-in" data-aos-delay="300">
+      <img src="https://img.icons8.com/color/48/000000/discount.png" alt="Descuento" class="mb-2 mx-auto" loading="lazy">
+      <h3 class="text-xl font-semibold text-amber-700">15% de Descuento</h3>
+      <p class="mt-2 text-gray-600 text-sm">Obtén un 15% de descuento en tu próxima visita. ¡Muestra esta página!</p>
+      <div id="countdown-1" class="countdown mt-2 text-lg flex items-center justify-center">
+        <span class="countdown-icon">⏳</span> <span class="ml-2">29d 6h 30m 33s restantes</span>
+      </div>
+      <div class="tooltip mt-4 flex justify-center">
+        <button onclick="openOrderModal()" class="bg-gradient-to-r from-amber-600 to-amber-400 text-white px-4 py-2 rounded-lg hover:bg-amber-700 hover:scale-105 transition duration-300 animate-pulse-slow flex items-center justify-center gap-2">Aprovechar Oferta →</button>
+        <span class="tooltiptext">¡Gana un café gratis al actuar ahora!</span>
+      </div>
+    </div>
+    <div class="bg-white p-4 rounded-lg shadow-md promo-card w-full" data-aos="zoom-in" data-aos-delay="400">
+      <img src="https://img.icons8.com/color/48/000000/music.png" alt="Noche de Jazz" class="mb-2 mx-auto" loading="lazy">
+      <h3 class="text-xl font-semibold text-amber-700">Noche de Jazz</h3>
+      <p class="mt-2 text-gray-600 text-sm">Únete a nuestra noche de jazz el 15 de marzo a las 7 PM. Café gratis con entrada.</p>
+      <div id="countdown-2" class="countdown mt-2 text-lg flex items-center justify-center">
+        <span class="countdown-icon">⏳</span> <span class="ml-2">13d 1h 30m 34s restantes</span>
+      </div>
+      <div class="tooltip mt-4 flex justify-center">
+        <a href="#mapa" class="bg-gradient-to-r from-amber-600 to-amber-400 text-white px-4 py-2 rounded-lg hover:bg-amber-700 hover:scale-105 transition duration-300 animate-pulse-slow">Ver Ubicación</a>
+        <span class="tooltiptext">¡Reserva tu lugar hoy!</span>
+      </div>
     </div>
   </div>
 </section>
 
 <!-- Testimonios -->
-<section id="testimonios" class="py-16 bg-gray-50 text-center" data-aos="fade-up">
+<section id="testimonios" class="py-10 bg-gray-50 text-center" data-aos="fade-up">
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">Nuestros clientes ❤️</h2>
-  <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 px-6">
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"El latte de avellana es increíble, y el Wi-Fi me salvó para una reunión de Zoom."</p>
-      <p class="mt-4 font-semibold text-amber-700">— Laura M.</p>
+  <div class="mt-4 swiper">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="bg-white p-4 rounded-lg shadow-md max-w-md mx-auto">
+          <p class="italic text-gray-600 text-sm sm:text-base">"El latte de avellana es increíble, y el Wi-Fi me salvó para una reunión de Zoom."</p>
+          <p class="mt-2 font-semibold text-amber-700">— Laura M.</p>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg-white p-4 rounded-lg shadow-md max-w-md mx-auto">
+          <p class="italic text-gray-600 text-sm sm:text-base">"Pedí un flat white y terminé quedándome 3 horas por lo cómodo del lugar."</p>
+          <p class="mt-2 font-semibold text-amber-700">— Daniel R.</p>
+        </div>
+      </div>
+      <div class="swiper-slide">
+        <div class="bg-white p-4 rounded-lg shadow-md max-w-md mx-auto">
+          <p class="italic text-gray-600 text-sm sm:text-base">"El café artesanal y la atención son de otro nivel. Mi nuevo spot favorito."</p>
+          <p class="mt-2 font-semibold text-amber-700">— Sofía P.</p>
+        </div>
+      </div>
     </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"Pedí un flat white y terminé quedándome 3 horas por lo cómodo del lugar."</p>
-      <p class="mt-4 font-semibold text-amber-700">— Daniel R.</p>
-    </div>
-    <div class="bg-white p-6 rounded-lg shadow-md">
-      <p class="italic text-gray-600 text-sm sm:text-base">"El café artesanal y la atención son de otro nivel. Mi nuevo spot favorito."</p>
-      <p class="mt-4 font-semibold text-amber-700">— Sofía P.</p>
-    </div>
+    <!-- Añadir navegación si es necesario -->
+    <div class="swiper-pagination"></div>
   </div>
 </section>
 
 <!-- Mapa -->
-<section id="mapa" class="py-12 text-center bg-gray-100" data-aos="fade-up">
+<section id="mapa" class="py-10 text-center bg-gray-100" data-aos="fade-up">
   <h2 class="text-2xl sm:text-3xl font-bold text-amber-800 px-4">¿Dónde encontrarnos?</h2>
-  <iframe class="mt-6 w-full h-64 sm:h-96 max-w-3xl mx-auto rounded-lg" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+  <iframe class="mt-4 w-full h-64 sm:h-96 max-w-3xl mx-auto rounded-lg" loading="lazy" src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3153.0190169573795!2d-123.12164768468145!3d49.28272997933192!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x548671798d3e4b6b%3A0x7fcd9f0a3e9b8b7!2sDowntown%20Vancouver!5e0!3m2!1ses!2sca!4v1648253778250!5m2!1ses!2sca" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
   <a href="https://goo.gl/maps/xyz" target="_blank" class="text-amber-700 underline mt-2 inline-block">Abrir en Google Maps</a>
 </section>
 
 <!-- Footer -->
-<footer class="bg-gray-900 text-white py-12 text-center">
+<footer class="py-8 bg-gray-900 text-white text-center">
   <h2 class="text-2xl sm:text-3xl font-bold">Contáctanos</h2>
   <p class="mt-2 text-gray-300 text-sm sm:text-base">Únete a nuestra comunidad cafetera</p>
-  <form name="contact" method="POST" data-netlify="true" class="mt-6 flex flex-col sm:flex-row justify-center gap-4 px-4" onsubmit="return handleSubmit(event)">
+  <form name="contact" method="POST" data-netlify="true" class="mt-4 flex flex-col sm:flex-row justify-center gap-4 px-4" onsubmit="return handleSubmit(event)">
     <input type="hidden" name="form-name" value="contact">
     <input type="email" name="email" placeholder="Tu email" required class="p-3 rounded-lg bg-gray-800 text-white border border-gray-700 focus:outline-none focus:border-amber-500 w-full sm:w-auto">
-    <button type="submit" class="bg-amber-700 px-6 py-3 rounded-lg hover:bg-amber-800 transition duration-300">Suscribirme</button>
+    <button type="submit" class="bg-amber-700 px-6 py-3 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300">Suscribirme</button>
   </form>
   <p id="form-message" class="text-sm text-gray-400 mt-2 hidden">¡Gracias! Revisa tu correo.</p>
   <p class="text-sm text-gray-400 mt-2">🎁 ¡Suscríbete y obtén un café gratis en tu próxima visita!</p>
-  <p class="mt-4 text-sm text-gray-400">hola@vancouvercoffee.co</p>
+  <div class="mt-4 flex justify-center gap-4">
+    <a href="https://instagram.com/vancoffee" target="_blank" class="text-amber-300 hover:text-amber-200">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.849.07 1.366.062 2.633.317 3.608 1.293.975.975 1.23 2.242 1.293 3.608.058 1.265.07 1.645.07 4.849s-.012 3.584-.07 4.849c-.062 1.366-.317 2.633-1.293 3.608-.975.975-2.242 1.23-3.608 1.293-1.265.058-1.645.07-4.849.07s-3.584-.012-4.849-.07c-1.366-.062-2.633-.317-3.608-1.293-.975-.975-1.23-2.242-1.293-3.608-.058-1.265-.07-1.645-.07-4.849s.012-3.584.07-4.849c.062-1.366.317-2.633 1.293-3.608.975-.975 2.242-1.23 3.608-1.293 1.265-.058 1.645-.07 4.849-.07m0-2.163c-3.259 0-3.667.014-4.947.072-1.31.062-2.54.297-3.484.653a5.122 5.122 0 00-1.846 1.846c-.356.944-.591 2.174-.653 3.484-.058 1.28-.072 1.688-.072 4.947s.014 3.667.072 4.947c.062 1.31.297 2.54.653 3.484.356.944.91 1.8 1.846 1.846 1.31.062 2.54.297 3.484.653 1.28.058 1.688.072 4.947.072s3.667-.014 4.947-.072c1.31-.062 2.54-.297 3.484-.653a5.122 5.122 0 001.846-1.846c.356-.944.591-2.174.653-3.484.058-1.28.072-1.688.072-4.947s-.014-3.667-.072-4.947c-.062-1.31-.297-2.54-.653-3.484a5.122 5.122 0 00-1.846-1.846c-.944-.356-2.174-.591-3.484-.653-1.28-.058-1.688-.072-4.947-.072z"/>
+        <path d="M12 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zm0 10.162a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 11-2.88 0 1.44 1.44 0 012.88 0z"/>
+      </svg>
+    </a>
+    <a href="https://facebook.com/vancoffee" target="_blank" class="text-amber-300 hover:text-amber-200">
+      <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+        <path d="M22.675 0H1.325C.593 0 0 .593 0 1.325v21.351C0 23.407.593 24 1.325 24h11.494v-9.294H9.691v-3.621h3.128V8.413c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.794.715-1.794 1.763v2.313h3.587l-.467 3.621h-3.12V24h6.116c.732 0 1.325-.593 1.325-1.325V1.325C24 .593 23.407 0 22.675 0z"/>
+      </svg>
+    </a>
+  </div>
+  <p class="mt-2 text-sm text-gray-400">hola@vancouvercoffee.co</p>
 </footer>
 
 <!-- Botón WhatsApp -->
@@ -208,7 +378,7 @@
     <form name="exit-contact" method="POST" data-netlify="true" class="mt-4 flex flex-col gap-2" onsubmit="return handlePopupSubmit(event)">
       <input type="hidden" name="form-name" value="exit-contact">
       <input type="email" name="email" placeholder="Tu email" required class="p-2 rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
-      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition duration-300">Suscribirme</button>
+      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow">Suscribirme</button>
     </form>
     <button onclick="closePopup()" class="mt-2 text-amber-700 underline">No, gracias</button>
   </div>
@@ -238,7 +408,7 @@
         <label for="name" class="block text-sm font-medium text-gray-700">Tu Nombre</label>
         <input type="text" id="name" name="name" required class="mt-1 p-2 w-full rounded-lg border border-gray-300 focus:outline-none focus:border-amber-500">
       </div>
-      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 transition duration-300">Confirmar Pedido</button>
+      <button type="submit" class="bg-amber-700 text-white px-6 py-2 rounded-lg hover:bg-amber-800 hover:scale-105 transition duration-300 animate-pulse-slow">Confirmar Pedido</button>
     </form>
     <button onclick="closeOrderModal()" class="mt-2 text-amber-700 underline">Cancelar</button>
     <p id="order-message" class="text-sm text-gray-600 mt-2 hidden">¡Pedido confirmado! Te esperamos pronto.</p>
@@ -247,8 +417,22 @@
 
 <!-- Scripts -->
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script> <!-- Swiper JS para testimonios -->
 <script>
   AOS.init();
+
+  // Inicializar Swiper para el carousel de testimonios
+  const swiper = new Swiper('.swiper', {
+    pagination: {
+      el: '.swiper-pagination',
+      dynamicBullets: true,
+    },
+    autoplay: {
+      delay: 3000,
+      disableOnInteraction: false,
+    },
+    loop: true,
+  });
 
   // Menú hamburguesa (solo en móvil)
   document.getElementById('menu-toggle').addEventListener('click', () => {
@@ -344,6 +528,31 @@
     setTimeout(closeOrderModal, 2000); // Cierra después de 2 segundos
     return false;
   }
+
+  // Contador regresivo para las promociones
+  function startCountdown(targetDate, elementId) {
+    const countdown = setInterval(() => {
+      const now = new Date().getTime();
+      const distance = new Date(targetDate).getTime() - now;
+
+      if (distance < 0) {
+        clearInterval(countdown);
+        document.getElementById(elementId).innerHTML = "¡Oferta expirada!";
+        return;
+      }
+
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+      document.getElementById(elementId).innerHTML = `<span class="countdown-icon">⏳</span> <span class="ml-2">${days}d ${hours}h ${minutes}m ${seconds}s restantes</span>`;
+    }, 1000);
+  }
+
+  // Iniciar contadores para las promociones (ejemplo: 31 de marzo de 2025 y 15 de marzo de 2025)
+  startCountdown('2025-03-31T23:59:59', 'countdown-1');
+  startCountdown('2025-03-15T19:00:00', 'countdown-2');
 </script>
 
 </body>
